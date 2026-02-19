@@ -1,0 +1,68 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    header
+      h1 Nueva Solicitud de Admisión
+      p
+        a(href="/") Return to the homepage
+
+    nav
+      a.nav-link(href="/") Solicitudes
+      a.nav-link(href="/contacts") Contactos
+      a.nav-link.active(href="/update-cobj") Nueva Solicitud
+
+    main
+      if error
+        .error-banner
+          p= error
+
+      form(action="/update-cobj" method="POST")
+        .form-group
+          label(for="name") Name *
+          input(
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Nombre completo del aspirante"
+            value=formData && formData.name ? formData.name : ''
+            required
+          )
+
+        .form-group
+          label(for="interest_program") Programa de Interés
+          input(
+            type="text"
+            id="interest_program"
+            name="interest_program"
+            placeholder="Ej: Ingeniería de Sistemas"
+            value=formData && formData.interest_program ? formData.interest_program : ''
+          )
+
+        .form-group
+          label(for="source_channel") Canal de Origen
+          select(id="source_channel" name="source_channel")
+            option(value="") -- Selecciona el canal --
+            option(
+              value="WhatsApp"
+              selected=formData && formData.source_channel === 'WhatsApp'
+            ) WhatsApp
+            option(
+              value="Webchat"
+              selected=formData && formData.source_channel === 'Webchat'
+            ) Webchat
+            option(
+              value="Landing"
+              selected=formData && formData.source_channel === 'Landing'
+            ) Landing
+
+        .form-actions
+          button.btn-primary(type="submit") Crear Solicitud
+          a.btn-secondary(href="/") Cancelar
+
+    footer
+      p Integrating With HubSpot I: Foundations Practicum — Andres Sanchez
