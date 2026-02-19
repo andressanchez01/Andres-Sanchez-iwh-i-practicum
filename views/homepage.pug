@@ -1,0 +1,49 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    header
+      h1 Solicitudes Bot Admisiones
+      p Universidad ALK — Sistema de Trazabilidad Operativa
+
+    nav
+      a.nav-link.active(href="/") Solicitudes
+      a.nav-link(href="/contacts") Contactos
+      a.nav-link(href="/update-cobj") Nueva Solicitud
+
+    main
+      if error
+        .error-banner
+          p= error
+
+      .table-header
+        h2 Registros Actuales
+        a.btn-primary(href="/update-cobj") Add to this table
+
+      if records && records.length > 0
+        table
+          thead
+            tr
+              th Name
+              th Programa de Interés
+              th Canal de Origen
+          tbody
+            each record in records
+              tr
+                td= record.properties.name || '—'
+                td= record.properties.interest_program || '—'
+                td= record.properties.source_channel || '—'
+      else
+        .empty-state
+          p No hay registros en el custom object todavía.
+          p
+            | Agrega el primero haciendo clic en
+            a(href="/update-cobj") Add to this table
+            | .
+
+    footer
+      p Integrating With HubSpot I: Foundations Practicum — Andres Sanchez

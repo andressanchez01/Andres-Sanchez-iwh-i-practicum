@@ -1,0 +1,46 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    header
+      h1 Contactos HubSpot
+      p Universidad ALK — CRM Contacts
+
+    nav
+      a.nav-link(href="/") Solicitudes
+      a.nav-link.active(href="/contacts") Contactos
+      a.nav-link(href="/update-cobj") Nueva Solicitud
+
+    main
+      if error
+        .error-banner
+          p= error
+
+      .table-header
+        h2 Contactos Registrados
+
+      if contacts && contacts.length > 0
+        table
+          thead
+            tr
+              th Nombre
+              th Apellido
+              th Email
+              th Teléfono
+          tbody
+            each contact in contacts
+              tr
+                td= contact.properties.firstname || '—'
+                td= contact.properties.lastname || '—'
+                td= contact.properties.email || '—'
+                td= contact.properties.phone || '—'
+      else
+        .empty-state
+          p No hay contactos registrados en HubSpot todavía.
+
+    footer
+      p Integrating With HubSpot I: Foundations Practicum — Andres Sanchez
